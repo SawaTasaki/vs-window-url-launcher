@@ -1,0 +1,10 @@
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
+
+.vscode-test.mjs
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

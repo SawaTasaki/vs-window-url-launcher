@@ -1,0 +1,66 @@
+{
+  "name": "window-url-launcher",
+  "publisher": "your-publisher",
+  "displayName": "VS Code 起動時／終了時に、指定の Web サイトをブラウザで開く",
+  "description": "VS Code 起動時／終了時に、指定の Web サイトをブラウザで開きます。",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "window-url-launcher",
+      "properties": {
+        "window-url-launcher.startupUrls": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^https?://.+" },
+          "scope": "application",
+          "default": ["http://localhost:5173/"],
+          "markdownDescription": "VS Codeウィンドウ**起動時**に開くURL。`http(s)://` のみ。"
+        },
+        "window-url-launcher.shutdownUrls": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^https?://.+" },
+          "scope": "application",
+          "default": ["http://localhost:5173/"],
+          "markdownDescription": "VS Codeウィンドウ**終了時**に開くURL。`http(s)://` のみ。"
+        }
+      }
+    },
+    "commands": [
+      { "command": "window-url-launcher.openSettings", "title": "window-url-launcher: Open Settings" },
+      { "command": "window-url-launcher.addStartupUrl", "title": "window-url-launcher: Add Startup URL" },
+      { "command": "window-url-launcher.addShutdownUrl", "title": "window-url-launcher: Add Shutdown URL" }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.102.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2",
+    "ts-loader": "^9.5.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
